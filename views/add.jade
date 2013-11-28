@@ -1,24 +1,91 @@
 extends layout
 
 block content
+  if msgs
+    if msgs.success
+      .alert.alert-success #{msgs.success}
+    if msgs.error
+      .alert.alert-warning #{msgs.error}
   .panel.panel-default
-    .panel-heading  Add a wine to your collection
+    .panel-heading  
+      if wine.saved == true
+        h4 Edit a wine in your collection
+      else
+        h4 Add a wine to your collection
     .panel-body
       form.form-horizontal(role='form', action="/add", method="POST")
+        input(type='hidden', value='#{wine.id}', name='id')
         .form-group
           label.col-sm-2.control-label(for='producer') Producer
-          .col-sm-10
+          .col-sm-4
             input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}')
         .form-group
+          label.col-sm-2.control-label(for='grapes') Type
+          .col-sm-4
+            select#grapes(name='grapes', value="#{wine.grapes}")
+              each grape in helpers.grapes
+                if grape.value == wine.grapes
+                  option(value='#{grape.value}' selected ) #{grape.label}
+                else
+                  option(value='#{grape.value}' ) #{grape.label}
+        .form-group
           label.col-sm-2.control-label(for='variety') Variety
-          .col-sm-10
-            select#variety(name='variety')
+          .col-sm-4
+            select#variety(name='variety', value="#{wine.variety}")
               each variety in helpers.variety
-                option(value='#{variety.value}') #{variety.label}
+                if variety.value == wine.variety
+                  option(value='#{variety.value}' selected ) #{variety.label}
+                else
+                  option(value='#{variety.value}' ) #{variety.label}
+        .form-group
+          label.col-sm-2.control-label(for='vintage') Vintage
+          .col-sm-4
+            select#vintage(name='vintage', value="#{wine.vintage}")
+              each vintage in helpers.years
+                if vintage == wine.vintage
+                  option(value='#{vintage}' selected ) #{vintage}
+                else
+                  option(value='#{vintage}' ) #{vintage}
+        .form-group
+          label.col-sm-2.control-label(for='purchased') Where Purchased
+          .col-sm-4
+            input#purchased.form-control(type='text', placeholder='Southern Wines...', name='purchased', value='#{wine.purchased}')
+        .form-group
+          label.col-sm-2.control-label(for='location') Wine Location
+          .col-sm-4
+            input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}')
+        .form-group
+          label.col-sm-2.control-label(for='country') Country
+          .col-sm-10
+            select#country(name='country', value="#{wine.country}")
+              each country in helpers.countries
+                if country == wine.country
+                  option(value='#{country}' selected ) #{country}
+                else
+                  option(value='#{country}' ) #{country}
         .form-group
           label.col-sm-2.control-label(for='price') Price
           .col-sm-2
             input#price.form-control(type='text', placeholder='$100', name='price', value='#{wine.price}')
         .form-group
+          label.col-sm-2.control-label(for='description') Description
+          .col-sm-6
+            textarea#purchased.form-control(placeholder='Tell us about this wine...', name='description') #{wine.description}
+        .form-group
+          label.col-sm-2.control-label(for='instock') In Stock?
+          .col-sm-4
+            if wine.instock == 'true'
+              input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}")
+            else
+              input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}')
+
+        .form-group
           .col-sm-offset-2.col-sm-10
-            button.btn.btn-default(type='submit') Add Wine
+            if wine.saved
+              button.btn.btn-default(type='submit') Save Wine
+            else
+              button.btn.btn-default(type='submit') Add Wine
+  script
+    $(":checkbox").change(function(e){
+      $(this).val( $(":checked").length > 0 ? "true" : "false");
+    });

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .panel.panel-default
+    .panel-heading Search for a Wine in your collection
+    .panel-body
+      form.form-horizontal(role='form', action="/find", method="POST")
+        .form-group
+          label.col-sm-2.control-label(for='grapes') Type
+          .col-sm-4
+            select#grapes(name='grapes')
+              each grape in helpers.grapes
+                option(value='#{grape.value}' ) #{grape.label}
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type='submit') Search

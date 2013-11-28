@@ -1,10 +1,21 @@
 extends layout
 
 block content
-  .container
-    .row
-      label(for='producer') Producer
-      span=producer
-    .row
-      label(for='variety') Variety
-      span=variety
+  if msgs
+    #msgs
+    if msgs.success
+      .alert.alert-success #{msgs.success}
+    if msgs.error
+      .alert.alert-warning #{msgs.error}
+  if wine.instock == 'false'
+    .alert.alert-danger This wine was removed from inventory on #{wine.removalDate}
+  .panel.panel-primary
+    .panel-heading 
+      strong #{wine.producer}
+    .panel-body
+      .wine
+        label(for='variety') Variety
+        div#variety(name='variety')
+    .panel-footer
+      a(href="/edit/#{wine.id}").btn.btn-primary Edit
+      a(href="/remove/#{wine.id}").btn Remove

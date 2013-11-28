@@ -29,8 +29,12 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/add', wines.add);
 app.post('/add', wines.saveWine);
+app.get('/edit/:id', wines.edit);
 app.get('/wines', wines.viewAll);
+app.get('/find', wines.find);
+app.post('/find', wines.search);
 app.get('/wine/:id', wines.findWine);
+app.get('/remove/:id', wines.removeWine);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

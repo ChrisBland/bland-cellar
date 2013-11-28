@@ -12,7 +12,8 @@ block content
       tbody
         each wine in wines
           tr
-            td #{wine.producer}
+            td 
+              a(href="/wine/#{wine.id}") #{wine.producer}
             td #{wine.variety}
             td #{wine.price}
             td 
