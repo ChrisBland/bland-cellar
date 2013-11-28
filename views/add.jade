@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .panel.panel-default
+    .panel-heading  Add a wine to your collection
+    .panel-body
+      form.form-horizontal(role='form', action="/add", method="POST")
+        .form-group
+          label.col-sm-2.control-label(for='producer') Producer
+          .col-sm-10
+            input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}')
+        .form-group
+          label.col-sm-2.control-label(for='variety') Variety
+          .col-sm-10
+            select#variety(name='variety')
+              each variety in helpers.variety
+                option(value='#{variety.value}') #{variety.label}
+        .form-group
+          label.col-sm-2.control-label(for='price') Price
+          .col-sm-2
+            input#price.form-control(type='text', placeholder='$100', name='price', value='#{wine.price}')
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type='submit') Add Wine

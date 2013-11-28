@@ -1,7 +1,11 @@
 doctype 5
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    include header
   body
-    block content
+    .navbar.navbar-static-top.navbar-default(role='navigation')
+      include menu
+    .container 
+      block content
+    .footer
+      include footer

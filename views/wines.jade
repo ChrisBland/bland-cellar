@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  .container
+    table.table.table-striped.table-bordered#wines
+      thead
+        th Producer
+        th Variety
+        th Price
+        th Date Entered
+        th Year
+      tbody
+        each wine in wines
+          tr
+            td #{wine.producer}
+            td #{wine.variety}
+            td #{wine.price}
+            td 
+            td
+  script
+    $(document).ready(function(){
+      jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+        "currency-pre": function ( a ) {
+            a = (a==="-") ? 0 : a.replace( /[^\d\-\.]/g, "" );
+            return parseFloat( a );
+        },
+     
+        "currency-asc": function ( a, b ) {
+            return a - b;
+        },
+     
+        "currency-desc": function ( a, b ) {
+            return b - a;
+        }
+      });
+      $('#wines').dataTable({
+        "aoColumns": [
+            null,
+            null,
+            { "sType": "currency" },
+            null,
+            null
+        ]
+      });
+    });
+    
