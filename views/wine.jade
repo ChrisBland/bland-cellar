@@ -17,5 +17,6 @@ block content
         label(for='variety') Variety
         div#variety(name='variety')
     .panel-footer
-      a(href="/edit/#{wine.id}").btn.btn-primary Edit
-      a(href="/remove/#{wine.id}").btn Remove
+      if wine.instock == 'true'
+        a(href="/edit/#{wine.id}").btn.btn-primary Edit
+        a(href="/remove/#{wine.id}").btn Remove

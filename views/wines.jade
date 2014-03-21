@@ -5,19 +5,27 @@ block content
     table.table.table-striped.table-bordered#wines
       thead
         th Producer
+        th Grapes
         th Variety
         th Price
+        th Location
         th Date Entered
         th Year
+        th In-Stock
       tbody
         each wine in wines
           tr
             td 
               a(href="/wine/#{wine.id}") #{wine.producer}
+            td #{wine.grapes}
             td #{wine.variety}
             td #{wine.price}
+            td #{wine.location}
             td 
+            td #{wine.vintage}
             td
+              if wine.instock == 'true'
+                span.glyphicon.glyphicon-ok
   script
     $(document).ready(function(){
       jQuery.extend( jQuery.fn.dataTableExt.oSort, {
@@ -38,7 +46,10 @@ block content
         "aoColumns": [
             null,
             null,
+            null,
             { "sType": "currency" },
+            null,
+            null,
             null,
             null
         ]
