@@ -1,3 +1,11 @@
+var moment = require('moment');
+
+var dateFormatter = function(createdDate){
+	console.log(createdDate);
+	return moment(createdDate).fromNow();
+}
+exports.dateFormatter = dateFormatter;
+
 exports.variety = [
 	{label: 'Pinot Noir', value: 'Pinot Noir'},
 	{label: 'Cabernet Sauvignon', value: 'Cabernet Sauvignon'},

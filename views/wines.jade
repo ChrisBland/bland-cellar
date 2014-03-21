@@ -9,7 +9,6 @@ block content
         th Variety
         th Price
         th Location
-        th Date Entered
         th Year
         th In-Stock
       tbody
@@ -21,7 +20,6 @@ block content
             td #{wine.variety}
             td #{wine.price}
             td #{wine.location}
-            td 
             td #{wine.vintage}
             td
               if wine.instock == 'true'
@@ -48,7 +46,6 @@ block content
             null,
             null,
             { "sType": "currency" },
-            null,
             null,
             null,
             null

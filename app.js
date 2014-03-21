@@ -35,6 +35,7 @@ app.get('/find', wines.find);
 app.post('/find', wines.search);
 app.get('/wine/:id', wines.findWine);
 app.get('/remove/:id', wines.removeWine);
+app.get('/delete/:id', wines.deleteWine);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

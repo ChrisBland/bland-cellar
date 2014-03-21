@@ -12,11 +12,54 @@ block content
   .panel.panel-primary
     .panel-heading 
       strong #{wine.producer}
-    .panel-body
-      .wine
-        label(for='variety') Variety
-        div#variety(name='variety')
+    .panel-body.panel-info
+      form.form-horizontal#addWine(role='form', action="/edit/{wine.id}", method="POST")
+        input(type='hidden', value='#{wine.id}', name='id')
+        .form-group
+          label.col-sm-2.control-label(for='producer') Producer
+          .col-sm-4
+            input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}', disabled)
+        .form-group
+          label.col-sm-2.control-label(for='grapes') Type
+          .col-sm-4
+            input#grapes(type="text", name='grapes', value="#{wine.grapes}", disabled)
+        .form-group
+          label.col-sm-2.control-label(for='variety') Variety
+          .col-sm-4
+            input#variety(type="text", name='variety', value="#{wine.variety}", disabled)
+        .form-group
+          label.col-sm-2.control-label(for='vintage') Vintage
+          .col-sm-4
+            input#vintage(type="text", name='vintage', value="#{wine.vintage}", disabled)
+        .form-group
+          label.col-sm-2.control-label(for='purchased') Where Purchased
+          .col-sm-4
+            input#purchased.form-control(type='text', placeholder='Southern Wines...', name='purchased', value='#{wine.purchased}', disabled)
+        .form-group
+          label.col-sm-2.control-label(for='location') Wine Location
+          .col-sm-4
+            input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}' , disabled)
+        .form-group
+          label.col-sm-2.control-label(for='country') Country
+          .col-sm-4
+            input#country(type="text" name='country', value="#{wine.country}", disabled)
+        .form-group
+          label.col-sm-2.control-label(for='price') Price
+          .col-sm-2
+            input#price.form-control(type='text', placeholder='$100', name='price', value='#{wine.price}', disabled)
+        .form-group
+          label.col-sm-2.control-label(for='description') Description
+          .col-sm-6
+            textarea#purchased.form-control(placeholder='Tell us about this wine...', name='description', disabled) #{wine.description}
+        .form-group
+          label.col-sm-2.control-label(for='instock') In Stock?
+          .col-sm-4
+            if wine.instock == 'true'
+              input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}", disabled)
+            else
+              input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}', disabled)
     .panel-footer
-      if wine.instock == 'true'
         a(href="/edit/#{wine.id}").btn.btn-primary Edit
-        a(href="/remove/#{wine.id}").btn Remove
+        if wine.instock == 'true'
+          a(href="/remove/#{wine.id}").btn Remove
+        a(href="/delete/#{wine.id}").pull-right.btn.btn-danger Delete

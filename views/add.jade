@@ -6,7 +6,7 @@ block content
       .alert.alert-success #{msgs.success}
     if msgs.error
       .alert.alert-warning #{msgs.error}
-  .panel.panel-default
+  .panel.panel-info
     .panel-heading  
       if wine.saved == true
         h4 Edit a wine in your collection
@@ -82,9 +82,9 @@ block content
         .form-group
           .col-sm-offset-2.col-sm-10
             if wine.saved
-              button.btn.btn-default(type='submit') Save Wine
+              button.btn.btn-primary(type='submit') Save Wine
             else
-              button.btn.btn-default(type='submit') Add Wine
+              button.btn.btn-primary(type='submit') Add Wine
   script
     $(document).ready(function(){
       $('select').chosen({width: "95%"});

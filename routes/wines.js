@@ -20,8 +20,7 @@ var WineSchema = new Schema({
     default: ''
   },
   createdDate: {
-    type: Date,
-    default: new Date()
+    type: Date
   },
   instock: {
     type: String,
@@ -62,11 +61,16 @@ var Wine = mongoose.model('Wine', WineSchema, 'wines');
 
 var helpers = require('./helpers.js');
 
+
+
 exports.viewAll = function(req, res){
+  var data = {};
   Wine.find({}, function(err, wines) {
     if(err) console.log(err);
-    console.log(wines);
-    res.render('wines', {wines: wines});
+    res.render('wines', {
+      wines: wines,
+      helpers: helpers
+    });
   });
 }
 
@@ -119,6 +123,7 @@ exports.add = function(req, res){
 exports.saveWine = function(req, res){
   var data = req.body;
   data.saved = true;
+  data.createdDate = new Date();
   console.log(data);
   console.log('FROM SUBMITTED');
   var msgs = {};
@@ -145,6 +150,25 @@ exports.removeWine = function(req, res){
         msgs: msgs
       });
     });    
+  });
+}
+
+exports.deleteWine = function(req, res){
+  var id = req.params.id;
+  var msgs = {};
+  Wine.remove({'_id':id }, function(err, item) {
+    console.log(err);
+    console.log(item);
+    res.redirect('/');
+    /*item.instock = false;
+    item.removalDate = new Date();
+    item.save(function(err){
+      if(err) msgs.error = err;
+      res.render('wine', {
+        wine: item,
+        msgs: msgs
+      });
+    });    */
   });
 }
 
