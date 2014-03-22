@@ -6,70 +6,91 @@ block content
       .alert.alert-success #{msgs.success}
     if msgs.error
       .alert.alert-warning #{msgs.error}
-  .panel.panel-info
-    .panel-heading  
-      if wine.saved == true
-        h4 Edit a wine in your collection
-      else
-        h4 Add a wine to your collection
-    .panel-body
-      form.form-horizontal#addWine(role='form', action="/add", method="POST")
+  form.form-horizontal#addWine(role='form', action="/wine/#{wine.id}", method="POST")
+    .panel.panel-info
+      .panel-heading  
+        if wine.saved == true
+          h4 Edit a wine in your collection
+        else
+          h4 Add a wine to your collection
+      .panel-body
         input(type='hidden', value='#{wine.id}', name='id')
-        .form-group
-          label.col-sm-2.control-label(for='producer') Producer
-          .col-sm-4
-            input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}', required)
-        .form-group
-          label.col-sm-2.control-label(for='grapes') Type
-          .col-sm-4
-            select#grapes(name='grapes', value="#{wine.grapes}")
-              each grape in helpers.grapes
-                if grape.value == wine.grapes
-                  option(value='#{grape.value}' selected ) #{grape.label}
-                else
-                  option(value='#{grape.value}' ) #{grape.label}
-        .form-group
-          label.col-sm-2.control-label(for='variety') Variety
-          .col-sm-4
-            select#variety(name='variety', value="#{wine.variety}")
-              each variety in helpers.variety
-                if variety.value == wine.variety
-                  option(value='#{variety.value}' selected ) #{variety.label}
-                else
-                  option(value='#{variety.value}' ) #{variety.label}
-        .form-group
-          label.col-sm-2.control-label(for='vintage') Vintage
-          .col-sm-4
-            select#vintage(name='vintage', value="#{wine.vintage}")
-              each vintage in helpers.years
-                if vintage == wine.vintage
-                  option(value='#{vintage}' selected ) #{vintage}
-                else
-                  option(value='#{vintage}' ) #{vintage}
-        .form-group
-          label.col-sm-2.control-label(for='purchased') Where Purchased
-          .col-sm-4
-            input#purchased.form-control(type='text', placeholder='Southern Wines...', name='purchased', value='#{wine.purchased}')
-        .form-group
-          label.col-sm-2.control-label(for='location') Wine Location
-          .col-sm-4
-            input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}' required)
-        .form-group
-          label.col-sm-2.control-label(for='country') Country
-          .col-sm-4
-            select#country(name='country', value="#{wine.country}")
-              each country in helpers.countries
-                if country == wine.country
-                  option(value='#{country}' selected ) #{country}
-                else
-                  option(value='#{country}' ) #{country}
-        .form-group
-          label.col-sm-2.control-label(for='price') Price
-          .col-sm-2
-            input#price.form-control(type='text', placeholder='$100', name='price', value='#{wine.price}')
+        h2
+          small Wine Details
+        .row
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='producer') Producer
+              .col-sm-9
+                input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}', required)
+            .form-group
+              label.col-sm-3.control-label(for='grapes') Type
+              .col-sm-9
+                select#grapes(name='grapes', value="#{wine.grapes}")
+                  each grape in helpers.grapes
+                    if grape.value == wine.grapes
+                      option(value='#{grape.value}' selected ) #{grape.label}
+                    else
+                      option(value='#{grape.value}' ) #{grape.label}
+            .form-group
+              label.col-sm-3.control-label(for='variety') Variety
+              .col-sm-9
+                select#variety(name='variety', value="#{wine.variety}")
+                  each variety in helpers.variety
+                    if variety.value == wine.variety
+                      option(value='#{variety.value}' selected ) #{variety.label}
+                    else
+                      option(value='#{variety.value}' ) #{variety.label}
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='vintage') Vintage
+              .col-sm-9
+                select#vintage(name='vintage', value="#{wine.vintage}")
+                  each vintage in helpers.years
+                    if vintage == wine.vintage
+                      option(value='#{vintage}' selected ) #{vintage}
+                    else
+                      option(value='#{vintage}' ) #{vintage}
+            .form-group
+              label.col-sm-3.control-label(for='country') Country
+              .col-sm-9
+                select#country(name='country', value="#{wine.country}")
+                  each country in helpers.countries
+                    if country == wine.country
+                      option(value='#{country}' selected ) #{country}
+                    else
+                      option(value='#{country}' ) #{country}
+            .form-group
+              label.col-sm-3.control-label(for='location') Wine Location
+              .col-sm-9
+                input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}' required)
+        hr
+        h2
+          small Purchase Information
+        .row
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='purchased') Where Purchased
+              .col-sm-9
+                input#purchased.form-control(type='text', placeholder='Southern Wines...', name='purchased', value='#{wine.purchased}')
+             .form-group
+              label.col-sm-3.control-label(for='purchasedDate') When Purchased
+              .col-sm-9
+                .input-group.date
+                  input#purchasedDate.form-control(type='text', name='purchasedDate', value='#{helpers.dateUtils.cleanDate(wine.purchasedDate)}')
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='price') Price
+              .col-sm-9
+                .input-group
+                  span.input-group-addon $
+                  input#price.form-control(type='text', placeholder='100', name='price', value='#{wine.price}')
+        hr
+        h2
+          small Description
         .form-group
           label.col-sm-2.control-label(for='description') Description
-          .col-sm-6
+          .col-sm-8
             textarea#purchased.form-control(placeholder='Tell us about this wine...', name='description') #{wine.description}
         .form-group
           label.col-sm-2.control-label(for='instock') In Stock?
@@ -78,13 +99,13 @@ block content
               input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}")
             else
               input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}')
-
-        .form-group
-          .col-sm-offset-2.col-sm-10
-            if wine.saved
-              button.btn.btn-primary(type='submit') Save Wine
-            else
-              button.btn.btn-primary(type='submit') Add Wine
+      .panel-footer
+        if wine.saved == true
+          button.btn.btn-success(type='submit') Save Wine
+          a.btn.btn-warning.pull-right(href="/wine/#{wine.id}") Cancel
+        else
+          button.btn.btn-success(type='submit') Add Wine
+          a.btn.btn-warning.pull-right(href="/") Cancel          
   script
     $(document).ready(function(){
       $('select').chosen({width: "95%"});
@@ -93,7 +114,8 @@ block content
         submitHandler: function(form) {
           form.submit();
         }
-      }); 
+      });
+      $('#purchasedDate').datepicker({ });
       $(":checkbox").change(function(e){
         $(this).val( $(":checked").length > 0 ? "true" : "false");
       });
