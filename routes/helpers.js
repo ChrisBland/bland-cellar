@@ -25,12 +25,12 @@ exports.variety = [
 
 exports.grapes = [
 	{label: '', value: ''},
-	{label: 'Champagne', 'Champagne'},
-	{label: 'Prosecco', value: 'Prosecco'}
+	{label: 'Champagne', value:'Champagne'},
+	{label: 'Prosecco', value: 'Prosecco'},
 	{label: 'Red', value: 'Red'},
-	{label: 'Rose', 'Rose'},
-	{label: 'Sparkling', 'Sparkling'},
-	{label: 'White', value: 'White'},
+	{label: 'Rose',value: 'Rose'},
+	{label: 'Sparkling', value: 'Sparkling'},
+	{label: 'White', value: 'White'}
 ];
 
 var years = [];
