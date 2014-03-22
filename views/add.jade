@@ -92,13 +92,6 @@ block content
           label.col-sm-2.control-label(for='description') Description
           .col-sm-8
             textarea#purchased.form-control(placeholder='Tell us about this wine...', name='description') #{wine.description}
-        .form-group
-          label.col-sm-2.control-label(for='instock') In Stock?
-          .col-sm-4
-            if wine.instock == 'true'
-              input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}")
-            else
-              input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}')
       .panel-footer
         if wine.saved == true
           button.btn.btn-success(type='submit') Save Wine

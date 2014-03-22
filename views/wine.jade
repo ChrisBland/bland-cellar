@@ -73,13 +73,6 @@ block content
           label.col-sm-2.control-label(for='description') Description
           .col-sm-8
             p #{wine.description}
-        .form-group
-          label.col-sm-2.control-label(for='instock') In Stock?
-          .col-sm-4
-            if wine.instock == 'true'
-              input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}", disabled)
-            else
-              input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}', disabled)
       .panel-footer
         a(href="/edit/#{wine.id}").btn.btn-primary Edit
         if wine.instock == 'true'
