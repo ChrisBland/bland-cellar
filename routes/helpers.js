@@ -40,13 +40,13 @@ for(var i = 2013; i >= 1950; i--){
 exports.years = years;
 
 var countries = [
-	'USA',
-	'France',
-	'Spain',
 	'Argentina',
-	'Italy',
 	'Australia',
-	'New Zealand'
+	'France',
+	'Italy',
+	'New Zealand',
+	'Spain',
+	'USA'
 ];
 
 exports.countries = countries;
