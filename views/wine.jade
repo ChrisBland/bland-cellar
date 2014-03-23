@@ -12,7 +12,7 @@ block content
         button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
         span #{msgs.error}
   if wine.instock == 'false'
-    .alert.alert-danger.alert-dismissable
+    .alert.alert-warning.alert-dismissable
       button.close(type="button", data-dismiss="alert", aria-hidden="true") &times; 
       span This wine was removed from inventory #{helpers.dateUtils.timeFrom(wine.removalDate)} on #{helpers.dateUtils.cleanDate(wine.removalDate)}
   form.form-horizontal#addWine(role='form', action="/wine/#{wine.id}", method="POST")
