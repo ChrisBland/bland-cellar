@@ -13,11 +13,15 @@ var WineSchema = new Schema({
   },
   price: {
     type: String,
-    default: '$'
+    default: ''
   },
   purchased: {
     type: String,
     default: ''
+  },
+  purchasedDate: {
+    type: Date,
+    default: null
   },
   createdDate: {
     type: Date
@@ -103,7 +107,8 @@ exports.search = function(req, res){
     if(err) msgs.error = err;
     res.render('wines', {
       wines: wines,
-      msgs: msgs
+      msgs: msgs,
+      helpers: helpers
     });
   })
   
@@ -124,15 +129,14 @@ exports.saveWine = function(req, res){
   var data = req.body;
   data.saved = true;
   data.createdDate = new Date();
-  console.log(data);
-  console.log('FROM SUBMITTED');
   var msgs = {};
   Wine.update({_id: data.id}, data, {upsert: true}, function(err){
     if(err) msgs.error = err;
     if(!err) msgs.success = 'Wine saved!';
     res.render('wine', {
       wine: data,
-      msgs: msgs
+      msgs: msgs,
+      helpers: helpers
     });
   });
 }
@@ -147,7 +151,8 @@ exports.removeWine = function(req, res){
       if(err) msgs.error = err;
       res.render('wine', {
         wine: item,
-        msgs: msgs
+        msgs: msgs,
+        helpers: helpers
       });
     });    
   });
@@ -179,7 +184,8 @@ exports.findWine = function(req, res){
     if(err) msgs.error = err;
     res.render('wine', {
       wine: item,
-      msgs: msgs
+      msgs: msgs,
+      helpers: helpers
     });
   });
 }

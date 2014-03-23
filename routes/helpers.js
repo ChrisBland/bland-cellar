@@ -1,10 +1,27 @@
 var moment = require('moment');
 
-var dateFormatter = function(createdDate){
+var timeFrom = function(createdDate){
 	console.log(createdDate);
+	if(createdDate == null || createdDate == '') return;
 	return moment(createdDate).fromNow();
-}
-exports.dateFormatter = dateFormatter;
+};
+
+var cleanDate = function(d){
+	console.log(d);
+	if(d !=null && d!= ''){
+		return moment(d).format("MM/DD/YYYY")
+	}else{
+		return '';
+	}
+};
+
+var dateUtils = {
+	timeFrom: timeFrom,
+	moment: moment,
+	cleanDate: cleanDate
+};
+
+exports.dateUtils = dateUtils
 
 exports.variety = [
 	{label: '', value: ''},
@@ -20,7 +37,8 @@ exports.variety = [
 	{label: 'Syrah/Shiraz ', value: 'Syrah/Shiraz'},
 	{label: 'Sémillon', value: 'Sémillon'},
 	{label: 'Viognier', value: 'Viognier'},
-	{label: 'Zinfandel', value: 'Zinfandel'}
+	{label: 'Zinfandel', value: 'Zinfandel'},
+	{label: 'Other', value: 'Other'}
 ];
 
 exports.grapes = [
@@ -30,7 +48,8 @@ exports.grapes = [
 	{label: 'Red', value: 'Red'},
 	{label: 'Rose',value: 'Rose'},
 	{label: 'Sparkling', value: 'Sparkling'},
-	{label: 'White', value: 'White'}
+	{label: 'White', value: 'White'},
+	{label: 'Other', value: 'Other'}
 ];
 
 var years = [];
@@ -47,7 +66,8 @@ var countries = [
 	'Italy',
 	'New Zealand',
 	'Spain',
-	'USA'
+	'USA',
+	'Other'
 ];
 
 exports.countries = countries;

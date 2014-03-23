@@ -8,6 +8,7 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var wines = require('./routes/wines')
+var logger = require('./logger.js');
 var app = express();
 
 // all environments
@@ -27,8 +28,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/add', wines.add);
-app.post('/add', wines.saveWine);
+app.get('/wine', wines.add);
+app.post('/wine/:id', wines.saveWine);
 app.get('/edit/:id', wines.edit);
 app.get('/wines', wines.viewAll);
 app.get('/find', wines.find);
@@ -38,5 +39,5 @@ app.get('/remove/:id', wines.removeWine);
 app.get('/delete/:id', wines.deleteWine);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  logger.log('Express server listening on port ' + app.get('port'), null);
 });

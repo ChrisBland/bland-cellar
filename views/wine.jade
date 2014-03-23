@@ -8,57 +8,72 @@ block content
     if msgs.error
       .alert.alert-warning #{msgs.error}
   if wine.instock == 'false'
-    .alert.alert-danger This wine was removed from inventory on #{wine.removalDate}
-  .panel.panel-primary
-    .panel-heading 
-      strong #{wine.producer}
-    .panel-body.panel-info
-      form.form-horizontal#addWine(role='form', action="/edit/{wine.id}", method="POST")
+    .alert.alert-danger This wine was removed from inventory #{helpers.dateUtils.timeFrom(wine.removalDate)} on #{helpers.dateUtils.cleanDate(wine.removalDate)}
+  form.form-horizontal#addWine(role='form', action="/wine/#{wine.id}", method="POST")
+    .panel.panel-primary
+      .panel-heading  
+        h4 #{wine.producer}
+      .panel-body
         input(type='hidden', value='#{wine.id}', name='id')
-        .form-group
-          label.col-sm-2.control-label(for='producer') Producer
-          .col-sm-4
-            input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}', disabled)
-        .form-group
-          label.col-sm-2.control-label(for='grapes') Type
-          .col-sm-4
-            input#grapes(type="text", name='grapes', value="#{wine.grapes}", disabled)
-        .form-group
-          label.col-sm-2.control-label(for='variety') Variety
-          .col-sm-4
-            input#variety(type="text", name='variety', value="#{wine.variety}", disabled)
-        .form-group
-          label.col-sm-2.control-label(for='vintage') Vintage
-          .col-sm-4
-            input#vintage(type="text", name='vintage', value="#{wine.vintage}", disabled)
-        .form-group
-          label.col-sm-2.control-label(for='purchased') Where Purchased
-          .col-sm-4
-            input#purchased.form-control(type='text', placeholder='Southern Wines...', name='purchased', value='#{wine.purchased}', disabled)
-        .form-group
-          label.col-sm-2.control-label(for='location') Wine Location
-          .col-sm-4
-            input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}' , disabled)
-        .form-group
-          label.col-sm-2.control-label(for='country') Country
-          .col-sm-4
-            input#country(type="text" name='country', value="#{wine.country}", disabled)
-        .form-group
-          label.col-sm-2.control-label(for='price') Price
-          .col-sm-2
-            input#price.form-control(type='text', placeholder='$100', name='price', value='#{wine.price}', disabled)
+        h2
+          small Wine Details
+        .row
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='producer') Producer
+              .col-sm-9
+                input#producer.form-control(type='text', placeholder='Producer', name='producer', value='#{wine.producer}', disabled)
+            .form-group
+              label.col-sm-3.control-label(for='grapes') Type
+              .col-sm-9
+                input#grapes.form-control(type='text', name='grapes', value="#{wine.grapes}", disabled)
+            .form-group
+              label.col-sm-3.control-label(for='variety') Variety
+              .col-sm-9
+                input#variety.form-control(type='text', name='variety', value="#{wine.variety}", disabled)
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='vintage') Vintage
+              .col-sm-9
+                input#variety.form-control(type='text', name='vintage', value="#{wine.vintage}", disabled)
+            .form-group
+              label.col-sm-3.control-label(for='country') Country
+              .col-sm-9
+                input#variety.form-control(type='text', name='country', value="#{wine.country}", disabled)
+            .form-group
+              label.col-sm-3.control-label(for='location') Wine Location
+              .col-sm-9
+                input#location.form-control(type='text', placeholder='Where is this stored?', name='location', value='#{wine.location}' disabled)
+        hr
+        h2
+          small Purchase Information
+        .row
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='purchased') Where Purchased
+              .col-sm-9
+                input#purchased.form-control(type='text', placeholder='', name='purchased', value='#{wine.purchased}', disabled)
+             .form-group
+              label.col-sm-3.control-label(for='purchasedDate') When Purchased
+              .col-sm-5
+                .input-group.date
+                  input#purchasedDate.form-control(type='text', name='purchasedDate', value='#{helpers.dateUtils.cleanDate(wine.purchasedDate)}', disabled)
+                  small #{helpers.dateUtils.timeFrom(wine.purchasedDate)}
+          .col-sm-6
+            .form-group
+              label.col-sm-3.control-label(for='price') Price
+              .col-sm-9
+                .input-group
+                  span.input-group-addon $
+                  input#price.form-control(type='text', placeholder='', name='price', value='#{wine.price}', disabled)
+        hr
+        h2
+          small Description
         .form-group
           label.col-sm-2.control-label(for='description') Description
-          .col-sm-6
-            textarea#purchased.form-control(placeholder='Tell us about this wine...', name='description', disabled) #{wine.description}
-        .form-group
-          label.col-sm-2.control-label(for='instock') In Stock?
-          .col-sm-4
-            if wine.instock == 'true'
-              input#instock.form-control(type='checkbox', name='instock', checked, value="#{wine.instock}", disabled)
-            else
-              input#instock.form-control(type='checkbox', name='instock', value='#{wine.instock}', disabled)
-    .panel-footer
+          .col-sm-8
+            p #{wine.description}
+      .panel-footer
         a(href="/edit/#{wine.id}").btn.btn-primary Edit
         if wine.instock == 'true'
           a(href="/remove/#{wine.id}").btn Remove
