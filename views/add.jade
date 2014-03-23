@@ -4,9 +4,12 @@ block content
   if msgs
     if msgs.success
       .alert.alert-success.alert-dismissable
+        button.close(type="button", data-dismiss="alert", aria-hidden="true") &times; 
         span #{msgs.success}
     if msgs.error
-      .alert.alert-warning #{msgs.error}
+      .alert.alert-warning.alert-dismissable
+        button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
+        span #{msgs.error}
   form.form-horizontal#addWine(role='form', action="/wine/#{wine.id}", method="POST")
     .panel.panel-info
       .panel-heading  

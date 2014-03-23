@@ -1,31 +1,34 @@
 extends layout
 
 block content
-  .container
-    table.table.table-striped.table-bordered#wines
-      thead
-        th Producer
-        th Grapes
-        th Variety
-        th Price
-        th Location
-        th Year
-        th Purchased
-        th In-Stock
-      tbody
-        each wine in wines
-          tr
-            td 
-              a(href="/wine/#{wine.id}") #{wine.producer}
-            td #{wine.grapes}
-            td #{wine.variety}
-            td $#{wine.price}
-            td #{wine.location}
-            td #{wine.vintage}
-            td #{helpers.dateUtils.cleanDate(wine.purchasedDate)}
-            td
-              if wine.instock == 'true'
-                span.glyphicon.glyphicon-ok
+  .panel.panel-primary
+    .panel-heading 
+      h4 Browse Wines
+    .panel-body
+      table.table.table-striped.table-bordered#wines
+        thead
+          th Producer
+          th Grapes
+          th Variety
+          th Price
+          th Location
+          th Year
+          th Purchased
+          th In-Stock
+        tbody
+          each wine in wines
+            tr
+              td 
+                a(href="/wine/#{wine.id}") #{wine.producer}
+              td #{wine.grapes}
+              td #{wine.variety}
+              td $#{wine.price}
+              td #{wine.location}
+              td #{wine.vintage}
+              td #{helpers.dateUtils.cleanDate(wine.purchasedDate)}
+              td
+                if wine.instock == 'true'
+                  span.glyphicon.glyphicon-ok
   script
     $(document).ready(function(){
       jQuery.extend( jQuery.fn.dataTableExt.oSort, {
