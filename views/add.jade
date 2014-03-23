@@ -3,7 +3,8 @@ extends layout
 block content
   if msgs
     if msgs.success
-      .alert.alert-success #{msgs.success}
+      .alert.alert-success.alert-dismissable
+        span #{msgs.success}
     if msgs.error
       .alert.alert-warning #{msgs.error}
   .panel.panel-info
